@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
+import boardReducer from './boardSlice'
 
 export const store = configureStore({
-  initialState: {
-	  value: 0
+  reducer: {
+	  board: boardReducer
   },
-  reducer: {},
 })
