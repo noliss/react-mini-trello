@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
+import { Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import routes from './routes'
 import { store } from './store/store';
 import { Provider } from 'react-redux'
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>
+      <Router>
+        {
+          Object.entries(routes).map((e) =>
+            <Route
+              exact
+              key={e[0]}
+              path={e[1].path}
+              component={e[1].component}
+            />
+          )
+        }
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
