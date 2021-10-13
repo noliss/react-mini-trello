@@ -151,19 +151,24 @@ export const boardSlice = createSlice({
 			})
 			console.log(state)
 		},
+		deleteListInBoard: (state, action) => {
+			const { payload: { listId } } = action
+			state.boards.filter((e) => e.id === state.currentBoard.id)[0].lists = 
+			state.boards.filter((e) => e.id === state.currentBoard.id)[0].lists
+				.filter((x) => x.id !== listId)
+		},
 		toogleStateTaskInList: (state, action) => {
 			const { payload: {taskId, listId, complete} } = action
-			state.currentBoard.lists = state.currentBoard.lists
-				.filter((item) => item.id === listId)[0].fullList
-				.filter((element) => element.id === taskId)[0].complete = !complete
+			console.log(taskId, listId, complete)
+			state.boards.filter((e) => e.id === state.currentBoard.id)[0].lists
+				.filter((x) => x.id === listId)[0].fullList
+				.filter((z) => z.id === taskId)[0].complete = !complete
 		},
 		newListInBoard: (state, action) => {
 			const { payload: {title} } = action
-			state.boards.filter((el) => el.id === state.currentBoard.id)[0].lists = [...state.currentBoard.lists, { title, id: Date.now(), fullList: [] }]
-			// state.currentBoard.lists = [...state.currentBoard.lists, { title, id: Date.now(), fullList: [] }]
-			// console.log(current(state.currentBoard))
-			// state.boards.filter((item) => item.id === state.currentBoard.id).lists = state.currentBoard.lists
-			// takeListById()
+			state.boards
+				.filter((el) => el.id === state.currentBoard.id)[0].lists = 
+				[...state.currentBoard.lists, { title, id: Date.now(), fullList: [] }]
 		},
 		newTaskInList: (state, action) => {
 			const { payload: {title, id, listId} } = action
@@ -175,6 +180,6 @@ export const boardSlice = createSlice({
 	},
 })
 
-export const { takeListById, addBoard, toogleStateTaskInList, newListInBoard, newTaskInList } = boardSlice.actions
+export const { takeListById, addBoard, toogleStateTaskInList, newListInBoard, newTaskInList, deleteListInBoard } = boardSlice.actions
 
 export default boardSlice.reducer

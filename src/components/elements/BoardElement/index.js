@@ -1,8 +1,7 @@
 import './style.sass'
-import { toogleStateTaskInList } from '../../../store/boardSlice'
-import { useState } from 'react'
+import { toogleStateTaskInList, deleteListInBoard, newTaskInList, takeListById } from '../../../store/boardSlice'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { newTaskInList } from '../../../store/boardSlice'
 function BoardElement(props) {
 
 	const { title, listId, fullList } = props
@@ -14,23 +13,30 @@ function BoardElement(props) {
 		dispatch(
 			toogleStateTaskInList({ taskId: id, listId, complete })
 		)
+		dispatch(takeListById());
 	}
 
 	const addTask = (e) => {
-		if (e.key === "Enter") {
-			return dispatch(newTaskInList({ title: taskName, id: Date.now(), listId }))
+		if (e.key === "Enter" && taskName.length) {
+			dispatch(newTaskInList({ title: taskName, id: Date.now(), listId }))
+			dispatch(takeListById());
 		}
+	}
+
+	const deleteList = () => {
+		dispatch(deleteListInBoard({listId}))
+		dispatch(takeListById());
 	}
 
 	return (
 		<div className="lists-item">
-			<div className="lists-item__action_delete"></div>
+			<div className="lists-item__action_delete" onClick={() => deleteList()}></div>
 			<div className="lists-item__title">{title}</div>
 			{
 				fullList.map((item) => {
 					return <li
 						key={item.id}
-						className="lists-item__row"
+						className={`lists-item__row ${item.complete ? 'lists-item__row_completed' : ''}`}
 						onClick={() => toggleTaskComplete({ id: item.id, complete: item.complete })}>
 						{item.title}
 					</li>
