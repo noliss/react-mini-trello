@@ -149,7 +149,6 @@ export const boardSlice = createSlice({
 				id,
 				lists
 			})
-			console.log(state)
 		},
 		deleteListInBoard: (state, action) => {
 			const { payload: { listId } } = action
@@ -172,10 +171,14 @@ export const boardSlice = createSlice({
 		},
 		newTaskInList: (state, action) => {
 			const { payload: {title, id, listId} } = action
-			console.log("yea")
 			state.boards
 				.filter((el) => el.id === state.currentBoard.id)[0].lists
 				.filter((element) => element.id === listId)[0].fullList.push({title, id})
+		},
+		updateListsInBoard: (state, action) => {
+			// const { payload: { updatedBoard } } = action
+			// data.boards.filter((e) => e.id === updatedBoard.id)[0] = updatedBoard
+			// dispatch('fetchBoardsData', data)
 		}
 	},
 })
