@@ -12,12 +12,12 @@ ReactDOM.render(
     <Provider store={store}>
       <Router>
         {
-          Object.entries(routes).map((e) =>
+          Object.entries(routes).map(([key, value]) =>
             <Route
               exact
-              key={e[0]}
-              path={e[1].path}
-              component={e[1].component}
+              key={key}
+              path={value.path}
+              component={value.component}
             />
           )
         }

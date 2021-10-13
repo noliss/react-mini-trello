@@ -15,8 +15,8 @@ function Lists(props) {
 
 	const addNewList = () => {
 		if (listTitle.length) {
-			setListTitle(listTitle)
 			dispatch(newListInBoard({title: listTitle}))
+			dispatch(takeListById());
 		}
 	}
 
