@@ -183,10 +183,10 @@ export const boardSlice = createSlice({
 			state.boards
 				.filter((el) => el.id === state.currentBoard.id)[0].lists
 				.filter((element) => element.id === currentList.id)[0].fullList =
-			state.boards
-				.filter((el) => el.id === state.currentBoard.id)[0].lists
-				.filter((element) => element.id === currentList.id)[0].fullList
-				.filter((zel) => zel.id !== task.id)
+				state.boards
+					.filter((el) => el.id === state.currentBoard.id)[0].lists
+					.filter((element) => element.id === currentList.id)[0].fullList
+					.filter((zel) => zel.id !== task.id)
 		}
 	},
 })

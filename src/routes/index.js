@@ -7,8 +7,8 @@ const routes = {
 		name: "Boards",
 		component: App,
 	},
-	lists: { 
-		path: '/board/:id', 
+	lists: {
+		path: '/board/:id',
 		name: "Lists",
 		component: Lists,
 	}
