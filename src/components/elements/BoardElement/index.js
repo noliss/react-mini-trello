@@ -20,6 +20,7 @@ function BoardElement(props) {
 		if (e.key === "Enter" && taskName.length) {
 			dispatch(newTaskInList({ title: taskName, id: Date.now(), listId }))
 			dispatch(takeListById());
+			setTaskName("")
 		}
 	}
 
