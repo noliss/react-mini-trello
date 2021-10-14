@@ -1,4 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+
+///////////////////////////////////////////////////////////////////
+// ДРЕВОВИДНАЯ СТРУКТУРА ВХОДЯЩИХ ДАННЫХ, МНОГО ВЛОЖЕННЫХ ЦИКЛОВ //
+///////////////////////////////////////////////////////////////////
 
 const initialState = {
 	boards: [
@@ -131,17 +135,18 @@ const initialState = {
 		},
 	],
 	currentBoard: [],
-	value: []
 }
 
 export const boardSlice = createSlice({
 	name: 'board',
 	initialState,
 	reducers: {
+		
 		takeListById: (state, action) => {
 			const { payload } = action
 			state.currentBoard = state.boards.filter((item) => item.id === parseInt(payload) ? item : false)[0]
 		},
+
 		addBoard: (state, action) => {
 			const { payload: { title, id, lists } } = action
 			state.boards.push({
@@ -150,12 +155,14 @@ export const boardSlice = createSlice({
 				lists
 			})
 		},
+
 		deleteListInBoard: (state, action) => {
 			const { payload: { listId } } = action
 			state.boards.filter((e) => e.id === state.currentBoard.id)[0].lists =
 				state.boards.filter((e) => e.id === state.currentBoard.id)[0].lists
 					.filter((x) => x.id !== listId)
 		},
+
 		toogleStateTaskInList: (state, action) => {
 			const { payload: { taskId, listId, complete } } = action
 			console.log(taskId, listId, complete)
@@ -163,18 +170,21 @@ export const boardSlice = createSlice({
 				.filter((x) => x.id === listId)[0].fullList
 				.filter((z) => z.id === taskId)[0].complete = !complete
 		},
+
 		newListInBoard: (state, action) => {
 			const { payload: { title } } = action
 			state.boards
 				.filter((el) => el.id === state.currentBoard.id)[0].lists =
 				[...state.currentBoard.lists, { title, id: Date.now(), fullList: [] }]
 		},
+
 		newTaskInList: (state, action) => {
 			const { payload: { title, id, listId } } = action
 			state.boards
 				.filter((el) => el.id === state.currentBoard.id)[0].lists
 				.filter((element) => element.id === listId)[0].fullList.push({ title, id, complete: false })
 		},
+
 		updateListsInBoard: (state, action) => {
 			const { payload: { currentList, swapList, task } } = action
 			state.boards
