@@ -1,6 +1,6 @@
 import './style.sass'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { newListInBoard, takeListById, updateListsInBoard } from '../../../store/boardSlice'
 import BoardElement from '../../elements/BoardElement'
@@ -10,7 +10,9 @@ function Lists(props) {
 	const [listTitle, setListTitle] = useState("")
 
 	const dispatch = useDispatch()
+
 	dispatch(takeListById(props.match.params.id))
+
 	const board = useSelector(({ board: { currentBoard } }) => currentBoard)
 
 	const addNewList = () => {
@@ -27,10 +29,10 @@ function Lists(props) {
 		}
 		let currentLists = [...board.lists]
 		let currentList = currentLists
-							.map((e) => e.fullList
-							.map((z) => z.id === parseInt(draggableId) ? e : null))
-							.flat(2)
-							.filter((i) => i)[0]
+			.map((e) => e.fullList
+				.map((z) => z.id === parseInt(draggableId) ? e : null))
+			.flat(2)
+			.filter((i) => i)[0]
 		let swapList = currentLists.filter((el) => el.id === parseInt(destination.droppableId))[0]
 		let task = currentList.fullList.filter((el) => el.id === parseInt(draggableId))[0]
 		console.log("КУДА НУЖНО СВАПНУТЬ:")
@@ -40,7 +42,7 @@ function Lists(props) {
 		console.log("ПЕРЕМЕЩАЕМЫЙ ТАСК")
 		console.log(task)
 		console.log(result)
-		dispatch(updateListsInBoard({currentList, swapList, task}))
+		dispatch(updateListsInBoard({ currentList, swapList, task }))
 		dispatch(takeListById());
 	}
 
@@ -61,8 +63,17 @@ function Lists(props) {
 						}
 						{board &&
 							<div className="lists-new">
-								<input className="lists-new__title" value={listTitle} onChange={(e) => setListTitle(e.target.value)} />
-								<div className="lists__add" onClick={() => addNewList()}>Добавить список</div>
+								<input
+									className="lists-new__title"
+									value={listTitle}
+									onChange={(e) => setListTitle(e.target.value)}
+								/>
+								<div
+									className="lists__add"
+									onClick={() => addNewList()}
+								>
+									Добавить список
+								</div>
 							</div>
 						}
 					</div>

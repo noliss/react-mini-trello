@@ -1,6 +1,6 @@
 import './style.sass'
 import { toogleStateTaskInList, deleteListInBoard, newTaskInList, takeListById } from '../../../store/boardSlice'
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 function BoardElement(props) {
@@ -8,13 +8,11 @@ function BoardElement(props) {
 	const { title, listId, fullList } = props
 
 	const [taskName, setTaskName] = useState("")
-	const [tasks, updateTasks] = useState(fullList)
 
 	const dispatch = useDispatch()
+
 	const toggleTaskComplete = ({ id, complete }) => {
-		dispatch(
-			toogleStateTaskInList({ taskId: id, listId, complete })
-		)
+		dispatch(toogleStateTaskInList({ taskId: id, listId, complete }))
 		dispatch(takeListById());
 	}
 
@@ -28,10 +26,6 @@ function BoardElement(props) {
 	const deleteList = () => {
 		dispatch(deleteListInBoard({ listId }))
 		dispatch(takeListById());
-	}
-
-	const handleDragEnd = (result) => {
-		console.log(result)
 	}
 
 	return (
