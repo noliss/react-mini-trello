@@ -2,8 +2,7 @@ import './style.sass'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
-import { newListInBoard } from '../../../store/boardSlice'
-import { takeListById } from '../../../store/boardSlice'
+import { newListInBoard, takeListById, updateListsInBoard } from '../../../store/boardSlice'
 import BoardElement from '../../elements/BoardElement'
 import { Link } from "react-router-dom"
 function Lists(props) {
@@ -26,15 +25,23 @@ function Lists(props) {
 		if (!destination) {
 			return
 		}
-
-		const { droppableId, index } = destination
-		// let updatedBoard = {...board}
-		// let filterUpdatedBoard = updatedBoard.lists.filter((e) => { return e.id === parseInt(droppableId)})[0]
-		// filterUpdatedBoard = filterUpdatedBoard.fullList.push({title: "123451", id: 4315134, complete: false})
-		// console.log(filterUpdatedBoard)
-		// updatedBoard.fullList.push({title: "123451", id: 4315134, complete: false})
-		// draggable - айди таска (taskId)
-		// droppable - куда кидаем (listId)
+		let currentLists = [...board.lists]
+		let currentList = currentLists
+							.map((e) => e.fullList
+							.map((z) => z.id === parseInt(draggableId) ? e : null))
+							.flat(2)
+							.filter((i) => i)[0]
+		let swapList = currentLists.filter((el) => el.id === parseInt(destination.droppableId))[0]
+		let task = currentList.fullList.filter((el) => el.id === parseInt(draggableId))[0]
+		console.log("КУДА НУЖНО СВАПНУТЬ:")
+		console.log(swapList)
+		console.log("ТЕКУЩИЙ ЛИСТ")
+		console.log(currentList)
+		console.log("ПЕРЕМЕЩАЕМЫЙ ТАСК")
+		console.log(task)
+		console.log(result)
+		dispatch(updateListsInBoard({currentList, swapList, task}))
+		dispatch(takeListById());
 	}
 
 	return (
