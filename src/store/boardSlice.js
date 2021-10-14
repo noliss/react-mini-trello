@@ -73,10 +73,6 @@ const initialState = {
 						},
 					]
 				},
-				{
-					title: "Пусто",
-					fullList: []
-				}
 			]
 		},
 		{
@@ -186,17 +182,18 @@ export const boardSlice = createSlice({
 		},
 
 		updateListsInBoard: (state, action) => {
-			const { payload: { currentList, swapList, task } } = action
-			state.boards
-				.filter((el) => el.id === state.currentBoard.id)[0].lists
-				.filter((element) => element.id === swapList.id)[0].fullList.push(task)
-			state.boards
-				.filter((el) => el.id === state.currentBoard.id)[0].lists
-				.filter((element) => element.id === currentList.id)[0].fullList =
-				state.boards
-					.filter((el) => el.id === state.currentBoard.id)[0].lists
-					.filter((element) => element.id === currentList.id)[0].fullList
-					.filter((zel) => zel.id !== task.id)
+			const { payload: { currentList, swapList, task, index } } = action
+			
+			const searchList = () => {
+				return state.boards
+						.filter((el) => el.id === state.currentBoard.id)[0].lists
+			}
+
+			searchList().filter((element) => element.id === currentList.id)[0].fullList =
+			searchList().filter((element) => element.id === currentList.id)[0].fullList
+				.filter((zel) => zel.id !== task.id)
+			searchList()
+				.filter((element) => element.id === swapList.id)[0].fullList.splice(index, 0, task)
 		}
 	},
 })

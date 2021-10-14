@@ -1,3 +1,5 @@
+@import './theme'
+	
 body
 	font-family: 'Facundo'
 
@@ -12,18 +14,18 @@ body
 	&-gen
 		&__up
 			padding: 8px 100px
-			color: #fff
-			border-color: #357ebd
-			background-color: #428bca
+			color: $white
+			border-color: $ligthBlue
+			background-color: $darkBlue
 			transition: 0.2s
 			cursor: pointer
 
 			&:hover
-				background-color: #6199ca
+				background-color: $fDarkBlue
 
 		&__toggled
 			padding: 10px
-			border: 1px solid #428bca
+			border: 1px solid $darkBlue
 
 		&__title
 			margin-bottom: 8px
@@ -38,38 +40,38 @@ body
 			&_button
 				padding: 5px 13px
 				margin-right: 10px
-				background-color: #428bca
-				color: #fff
+				background-color: $darkBlue
+				color: $white
 				cursor: pointer
 				transition: 0.2s
 
 				&:hover
-					background-color: #6199ca
+					background-color: $fDarkBlue
 
 				&-cancel
-					background-color: #E32636
+					background-color: $red
 
 					&:hover
-						background-color: #ee3343
+						background-color: $lightRed
 
 	&__boards
 		width: 378px
 
 		&_title
-			background-color: #428bca
-			color: #fff
+			background-color: $darkBlue
+			color: $white
 			padding: 2px 7px
 	&-item
 		display: flex
 		justify-content: space-between
-		border-bottom: 1px solid #428bca
+		border-bottom: 1px solid $darkBlue
 		padding: 7px 7px
 		cursor: pointer
 		transition: 0.2s
 
 		&:hover
-			background-color: #428bca
-			color: #fff
+			background-color: $darkBlue
+			color: $white
 
 		&__count
 			width: 40px

@@ -19,6 +19,7 @@ function Lists(props) {
 		if (listTitle.length) {
 			dispatch(newListInBoard({ title: listTitle }))
 			dispatch(takeListById());
+			setListTitle("")
 		}
 	}
 
@@ -35,14 +36,7 @@ function Lists(props) {
 			.filter((i) => i)[0]
 		let swapList = currentLists.filter((el) => el.id === parseInt(destination.droppableId))[0]
 		let task = currentList.fullList.filter((el) => el.id === parseInt(draggableId))[0]
-		console.log("КУДА НУЖНО СВАПНУТЬ:")
-		console.log(swapList)
-		console.log("ТЕКУЩИЙ ЛИСТ")
-		console.log(currentList)
-		console.log("ПЕРЕМЕЩАЕМЫЙ ТАСК")
-		console.log(task)
-		console.log(result)
-		dispatch(updateListsInBoard({ currentList, swapList, task }))
+		dispatch(updateListsInBoard({ currentList, swapList, task, index: destination.index }))
 		dispatch(takeListById());
 	}
 
